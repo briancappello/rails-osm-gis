@@ -64,3 +64,9 @@ gem "minitest", "~> 5.10"
 
 # Added at 2017-11-09 14:44:09 -0500 by brian:
 gem "minitest-reporters", "~> 1.1"
+
+# Added at 2017-11-09 14:45:47 -0500 by brian:
+gem "guard", "~> 2.14"
+
+# Added at 2017-11-09 14:49:55 -0500 by brian:
+gem "guard-minitest", "~> 2.4"
