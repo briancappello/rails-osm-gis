@@ -55,3 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added at 2017-11-09 13:44:44 -0500 by brian:
 gem "haml", "~> 5.0"
+
+# Added at 2017-11-09 13:56:04 -0500 by brian:
+gem "haml-rails", "~> 1.0"
