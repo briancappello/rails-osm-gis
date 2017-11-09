@@ -58,3 +58,9 @@ gem "haml", "~> 5.0"
 
 # Added at 2017-11-09 13:56:04 -0500 by brian:
 gem "haml-rails", "~> 1.0"
+
+# Added at 2017-11-09 14:43:08 -0500 by brian:
+gem "minitest", "~> 5.10"
+
+# Added at 2017-11-09 14:44:09 -0500 by brian:
+gem "minitest-reporters", "~> 1.1"
