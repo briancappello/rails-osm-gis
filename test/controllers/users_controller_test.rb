@@ -7,7 +7,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @user_two = users(:user_two)
   end
 
-  test "should get new" do
+  test 'index should redirect if not logged in' do
+    get users_path
+    assert_redirected_to login_url
+  end
+
+  test 'should get new' do
     get sign_up_path
     assert_response :success
     assert_select 'title', title_helper('Sign up')

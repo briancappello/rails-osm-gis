@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
 
-  before_action :require_auth, only: [:edit, :update,
+  before_action :require_auth, only: [:index,
+                                      :edit, :update,
                                       :edit_password, :update_password]
   before_action :require_correct_user, only: [:edit, :update,
                                               :edit_password, :update_password]
+
+  def index
+    @users = User.all
+  end
 
   def show
     @user = User.find(params[:id])
