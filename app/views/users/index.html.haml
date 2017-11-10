@@ -3,9 +3,9 @@
 
 %h1 Users
 
+= will_paginate
+
 %ul.users
-  - @users.each do |user|
-    %li.user
-      = link_to user.name do
-        = gravatar_for user, size: 60
-        %span.name= user.name
+  = render @users
+
+= will_paginate

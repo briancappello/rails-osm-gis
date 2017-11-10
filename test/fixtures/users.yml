@@ -9,3 +9,10 @@ user_two:
   name: user_two
   email: a@b.com
   password_digest: <%= User.digest('password') %>
+
+<% (3..35).each do |i| %>
+user_<%= i %>:
+  name: <%= "User #{i}" %>
+  email: <%= "user#{i}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>

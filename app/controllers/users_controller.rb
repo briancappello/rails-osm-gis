@@ -7,7 +7,7 @@ class UsersController < ApplicationController
                                               :edit_password, :update_password]
 
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   def show

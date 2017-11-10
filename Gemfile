@@ -85,3 +85,12 @@ gem "rails-controller-testing", "~> 1.0"
 
 # Added at 2017-11-09 22:11:14 -0500 by brian:
 gem "bcrypt", "~> 3.1"
+
+# Added at 2017-11-10 16:37:36 -0500 by brian:
+gem "faker", "~> 1.8"
+
+# Added at 2017-11-10 16:44:13 -0500 by brian:
+gem "will_paginate", "~> 3.1"
+
+# Added at 2017-11-10 16:44:25 -0500 by brian:
+gem "bootstrap-will_paginate", "~> 1.0"
