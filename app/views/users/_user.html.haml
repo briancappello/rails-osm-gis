@@ -2,3 +2,10 @@
   = link_to user do
     = gravatar_for user, size: 60
     %span.name= user.name
+  - if current_user.admin? && !current_user?(user)
+    |
+    = link_to user, method: :delete,
+                    class: 'btn btn-xs btn-danger',
+                    data: { confirm: 'Are you sure?' } do
+      %i.glyphicon.glyphicon-trash
+      delete

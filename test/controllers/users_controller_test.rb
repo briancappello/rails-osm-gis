@@ -121,4 +121,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not @user.reload.admin?
   end
 
+  test 'only admins can delete users' do
+    login_as(@user)
+    assert_no_difference 'User.count' do
+      delete user_path(users(:user2))
+    end
+    assert_redirected_to root_path
+    assert_not flash.empty?
+
+    login_as(@admin)
+    assert_difference 'User.count', -1 do
+      delete user_path(@user)
+    end
+  end
+
 end

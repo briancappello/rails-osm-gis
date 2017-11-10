@@ -44,4 +44,8 @@ class User < ApplicationRecord
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
+  def admin?
+    self.admin
+  end
+
 end
