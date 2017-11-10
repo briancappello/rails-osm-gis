@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+
+  before_action :require_auth, only: [:edit, :update,
+                                      :edit_password, :update_password]
+  before_action :require_correct_user, only: [:edit, :update,
+                                              :edit_password, :update_password]
+
   def show
     @user = User.find(params[:id])
   end

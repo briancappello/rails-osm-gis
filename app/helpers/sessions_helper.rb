@@ -1,5 +1,18 @@
 module SessionsHelper
 
+  def require_auth
+    unless logged_in?
+      flash[:danger] = 'Please log in.'
+      remember_redirect_to
+      redirect_to login_url
+    end
+  end
+
+  def require_correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
+
   def current_user
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
@@ -11,6 +24,10 @@ module SessionsHelper
       end
     end
     @current_user
+  end
+
+  def current_user?(user)
+    user == @current_user
   end
 
   def logged_in?
@@ -37,6 +54,15 @@ module SessionsHelper
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
+  end
+
+  def remember_redirect_to
+    session[:redirect_to] = request.original_url if request.get?
+  end
+
+  def redirect_to_remembered_or(default)
+    redirect_to(session[:redirect_to] || default)
+    session.delete(:redirect_to)
   end
 
 end

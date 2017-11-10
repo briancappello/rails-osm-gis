@@ -60,4 +60,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_nil cookies['remember_token']
   end
 
+  test 'redirect after login' do
+    get edit_user_path(@user)
+    login_as(@user)
+    assert_redirected_to edit_user_path(@user)
+  end
+
+  test 'redirect already-logged-in user to their profile page' do
+    login_as(@user)
+    get login_path
+    assert_redirected_to @user
+    assert_not flash.empty?
+  end
+
 end

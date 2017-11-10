@@ -7,6 +7,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'successful edit' do
+    login_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
     name = 'foobar'
@@ -24,7 +25,21 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal email, @user.email
   end
 
+  test 'edit errors' do
+    login_as(@user)
+    patch edit_user_path(@user), params: {
+      user: {
+        name: '',
+        email: 'foo@invalid'
+      }
+    }
+    assert_template 'users/edit'
+    assert_select 'div.form-errors'
+    assert_select 'div.field_with_errors'
+  end
+
   test 'change password success' do
+    login_as(@user)
     get change_password_user_path(@user)
     assert_template 'users/edit_password'
     current_pass = 'password'
@@ -41,6 +56,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'change password error on invalid current password' do
+    login_as(@user)
     get change_password_user_path(@user)
     patch change_password_user_path(@user), params: {
       user: {
@@ -55,6 +71,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'change password error on invalid new password' do
+    login_as(@user)
     get change_password_user_path(@user)
     patch change_password_user_path(@user), params: {
       user: {
@@ -69,6 +86,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'change password error on new password matches existing' do
+    login_as(@user)
     get change_password_user_path(@user)
     patch change_password_user_path(@user), params: {
       user: {
