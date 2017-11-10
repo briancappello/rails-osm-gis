@@ -79,3 +79,6 @@ gem "sprockets", "~> 3.7"
 
 # Added at 2017-11-09 20:07:13 -0500 by brian:
 gem "jquery-rails", "~> 4.3"
+
+# Added at 2017-11-09 20:46:03 -0500 by brian:
+gem "rails-controller-testing", "~> 1.0"
