@@ -16,3 +16,12 @@ textarea {
     color: $state-danger-text;
   }
 }
+
+.checkbox-label {
+  @extend .control-label;
+  font-weight: normal;
+
+  input[type="checkbox"] {
+    vertical-align: top;
+  }
+}

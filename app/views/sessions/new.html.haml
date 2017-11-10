@@ -14,6 +14,11 @@
         = f.label :password, class: 'control-label'
         = f.password_field :password, class: 'form-control'
 
+      .form-group
+        = f.label :remember_me, class: 'checkbox-label' do
+          = f.check_box :remember_me
+          Remember me on this computer
+
       %button.btn.btn-primary{type: 'submit', name: 'commit'}
         Log in
 
