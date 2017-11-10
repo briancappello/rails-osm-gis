@@ -110,4 +110,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_template 'static_pages/home'
   end
 
+  test 'not possible to set user as admin via web endpoints' do
+    login_as(@user)
+    assert_not @user.admin?
+    patch user_path(@user), params: {
+      user: {
+        admin: true
+      }
+    }
+    assert_not @user.reload.admin?
+  end
+
 end
