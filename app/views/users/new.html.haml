@@ -4,34 +4,4 @@
 %h1.center Sign up
 .row
   .col-md-6.col-md-offset-3
-    = form_for @user, url: sign_up_path do |f|
-
-      - if @user.errors.any?
-        .form-errors
-          .alert.alert-danger
-            %strong<
-              The form contains
-              = pluralize(@user.errors.count, 'error')
-              \:
-            %ul
-              - @user.errors.full_messages.each do |msg|
-                %li= msg
-
-      .form-group
-        = f.label :name, class: 'control-label'
-        = f.text_field :name, class: 'form-control'
-
-      .form-group
-        = f.label :email, class: 'control-label'
-        = f.email_field :email, class: 'form-control'
-
-      .form-group
-        = f.label :password, class: 'control-label'
-        = f.password_field :password, class: 'form-control'
-
-      .form-group
-        = f.label :password_confirmation, 'Confirm Password', class: 'control-label'
-        = f.password_field :password_confirmation, class: 'form-control'
-
-      %button.btn.btn-primary{type: 'submit', name: 'commit'}
-        Sign up
+    = render 'form', url: sign_up_path, submit_text: 'Sign up'

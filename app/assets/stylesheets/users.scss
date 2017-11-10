@@ -18,3 +18,14 @@
     margin-bottom: 10px;
   }
 }
+
+.user-edit {
+  .edit-gravatar {
+    .control-label {
+      display: block;
+    }
+    a {
+      padding-left: 5px;
+    }
+  }
+}

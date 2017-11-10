@@ -14,6 +14,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
 
   validates :password, presence: true,
+                       allow_nil: true,
                        length: { minimum: 8 }
 
   # FIXME: better to use "method reference" convention for defining callbacks

@@ -9,8 +9,25 @@ class UsersSignUpTest < ActionDispatch::IntegrationTest
         user: {
           name: '',
           email: 'a@invalid',
-          password: 'foo',
-          password_confirmation: 'bar'
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
+    end
+    assert_template 'users/new'
+    assert_select 'div.form-errors'
+    assert_select 'div.field_with_errors'
+  end
+
+  test 'should generate form errors with no password' do
+    get sign_up_path
+    assert_no_difference 'User.count' do
+      post sign_up_path, params: {
+        user: {
+          name: 'name',
+          email: 'a@valid.com',
+          password: '',
+          password_confirmation: ''
         }
       }
     end

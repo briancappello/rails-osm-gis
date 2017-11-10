@@ -13,5 +13,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  resources :users
+  resources :users do
+    patch 'edit', on: :member, action: 'update'
+    get 'change-password', on: :member, action: 'edit_password'
+    patch 'change-password', on: :member, action: 'update_password'
+  end
 end

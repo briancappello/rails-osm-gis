@@ -28,8 +28,8 @@
               %li{class: ('active' if current_page?(user_path(current_user)))}
                 = link_to user_path(current_user) do
                   Profile
-              %li
-                = link_to '#' do
+              %li{class: ('active' if current_page?(edit_user_path(current_user)))}
+                = link_to edit_user_path(current_user) do
                   Settings
               %li.divider
               %li

@@ -1,0 +1,13 @@
+- provide :title, 'Edit Profile'
+- provide :body_class, 'user-edit'
+
+.row
+  .col-md-6.col-md-offset-3
+    %h1 Edit Profile
+    = render 'form', url: edit_user_path, submit_text: 'Save'
+    %hr/
+    .edit-gravatar
+      %label.control-label Gravatar
+      = gravatar_for @user
+      %a{href: 'http://gravatar.com/emails', target: '_blank', rel: 'noopener'}
+        change
