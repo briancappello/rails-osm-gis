@@ -6,7 +6,8 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      login(user)
+      login user
+      remember user
       redirect_to user_path(user)
     else
       # render isn't considered a new request, so need to use flash.now
@@ -16,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    logout
+    logout if logged_in?
     redirect_to root_path
   end
 
