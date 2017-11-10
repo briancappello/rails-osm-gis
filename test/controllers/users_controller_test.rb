@@ -3,8 +3,8 @@ require 'test_helper'
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = users(:user_one)
-    @user_two = users(:user_two)
+    @user = users(:user)
+    @admin = users(:admin)
   end
 
   test 'index should redirect if not logged in' do
@@ -46,16 +46,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'edit requires correct user' do
-    login_as(@user_two)
-    get edit_user_path(@user)
+    login_as(@user)
+    get edit_user_path(@admin)
     assert_redirected_to root_path
     follow_redirect!
     assert_template 'static_pages/home'
   end
 
   test 'update requires correct user' do
-    login_as(@user_two)
-    patch edit_user_path(@user), params: {
+    login_as(@user)
+    patch edit_user_path(@admin), params: {
       user: {
         name: 'foo',
         email: 'bar@baz.com'
@@ -89,16 +89,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'change password requires correct user' do
-    login_as(@user_two)
-    get change_password_user_path(@user)
+    login_as(@user)
+    get change_password_user_path(@admin)
     assert_redirected_to root_path
     follow_redirect!
     assert_template 'static_pages/home'
   end
 
   test 'update password requires correct user' do
-    login_as(@user_two)
-    patch change_password_user_path(@user), params: {
+    login_as(@user)
+    patch change_password_user_path(@admin), params: {
       user: {
         current_password: 'password',
         password: 'new_password',
