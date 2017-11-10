@@ -82,3 +82,6 @@ gem "jquery-rails", "~> 4.3"
 
 # Added at 2017-11-09 20:46:03 -0500 by brian:
 gem "rails-controller-testing", "~> 1.0"
+
+# Added at 2017-11-09 22:11:14 -0500 by brian:
+gem "bcrypt", "~> 3.1"
