@@ -70,3 +70,12 @@ gem "guard", "~> 2.14"
 
 # Added at 2017-11-09 14:49:55 -0500 by brian:
 gem "guard-minitest", "~> 2.4"
+
+# Added at 2017-11-09 18:38:17 -0500 by brian:
+gem "bootstrap-sass", "~> 3.3"
+
+# Added at 2017-11-09 18:42:49 -0500 by brian:
+gem "sprockets", "~> 3.7"
+
+# Added at 2017-11-09 20:07:13 -0500 by brian:
+gem "jquery-rails", "~> 4.3"
