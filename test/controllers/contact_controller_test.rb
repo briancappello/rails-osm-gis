@@ -1,14 +1,11 @@
 require 'test_helper'
 
-class StaticPagesControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    @base_title = 'Sample App'
-  end
+class ContactControllerTest < ActionDispatch::IntegrationTest
 
   test "should get contact" do
     get contact_url
     assert_response :success
-    assert_select 'title', "Contact | #{@base_title}"
+    assert_select 'title', title_helper('Contact')
   end
 
 end

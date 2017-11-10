@@ -8,4 +8,8 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def title_helper(str = nil)
+    [str, 'Sample App'].compact.join(' | ')
+  end
 end
