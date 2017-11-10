@@ -1,0 +1,10 @@
+- provide :body_class, 'user-info'
+- provide :title, @user.name
+
+.row
+  %aside.col-md-4
+    %section.user-info
+      %h1
+        = gravatar_for @user
+        = @user.name
+  .col-md-8

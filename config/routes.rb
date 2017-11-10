@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'contact#contact'
   get '/sign-up', to: 'users#new'
+  post '/sign-up', to: 'users#create'
 
   resources :users
 end
