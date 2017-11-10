@@ -8,30 +8,30 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should be valid' do
-    assert @user.valid?
+    assert @user.valid?, @user.inspect
   end
 
   test 'name required' do
     @user.name = ''
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
   test 'name not too long' do
     maxlen = 50
     @user.name = 'a' * (maxlen + 1)
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
   test 'email required' do
     @user.email = ''
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
   test 'email not too long' do
     maxlen = 255
     domain = '@a.com'
     @user.email = 'a' * (maxlen - domain.length + 1) + domain
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
   test 'email must be a valid address' do
@@ -42,7 +42,7 @@ class UserTest < ActiveSupport::TestCase
                          alice+bob@baz.cn]
     valid_addresses.each do |addr|
       @user.email = addr
-      assert @user.valid?, "#{addr.inspect} should be considered valid"
+      assert @user.valid?, "#{addr.inspect} should be considered valid (#{@user.inspect})"
     end
 
     invalid_addresses = %w[user@example,com
@@ -52,7 +52,7 @@ class UserTest < ActiveSupport::TestCase
                            foo@bar+baz.com]
     invalid_addresses.each do |addr|
       @user.email = addr
-      assert_not @user.valid?, "#{addr.inspect} should be considered invalid"
+      assert_not @user.valid?, "#{addr.inspect} should be considered invalid (#{@user.inspect})"
     end
   end
 
@@ -60,11 +60,11 @@ class UserTest < ActiveSupport::TestCase
     dupe = @user.dup
     dupe.email = @user.email.upcase
     @user.save
-    assert_not dupe.valid?
+    assert_not dupe.valid?, "User: #{@user.inspect}, Duplicate: #{dupe.inspect}"
   end
 
   test 'email downcased on save' do
-    addr = 'A@A.com'
+    addr = 'A@EXAMPLE.com'
     @user.email = addr
     @user.save
     assert_equal addr.downcase, @user.reload.email
@@ -72,13 +72,13 @@ class UserTest < ActiveSupport::TestCase
 
   test 'password not blank' do
     @user.password = @user.password_confirmation = ' ' * 10
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
   test 'password minimum length' do
     minlen = 8
     @user.password = @user.password_confirmation = 'a' * (minlen - 1)
-    assert_not @user.valid?
+    assert_not @user.valid?, @user.inspect
   end
 
 end
