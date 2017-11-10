@@ -6,8 +6,15 @@
   }
 }
 
+.user-login,
 .user-sign-up {
   form > button[type="submit"] {
     width: 100%;
+  }
+}
+
+.user-login {
+  form {
+    margin-bottom: 10px;
   }
 }

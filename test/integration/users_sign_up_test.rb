@@ -19,7 +19,7 @@ class UsersSignUpTest < ActionDispatch::IntegrationTest
     assert_select 'div.field_with_errors'
   end
 
-  test 'valid submission should persist a new user' do
+  test 'valid submission should persist a new user and log them in' do
     get sign_up_path
     assert_difference 'User.count', 1 do
       post sign_up_path, params: {
@@ -34,6 +34,7 @@ class UsersSignUpTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'users/show'
     assert_not flash.empty?
+    assert is_logged_in?
   end
 
 end

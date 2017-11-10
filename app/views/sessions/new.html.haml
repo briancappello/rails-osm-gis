@@ -1,0 +1,22 @@
+- provide :title, 'Login'
+- provide :body_class, 'user-login'
+
+%h1.center Log in
+.row
+  .col-md-6.col-md-offset-3
+    = form_for :session, url: login_path do |f|
+
+      .form-group
+        = f.label :email, class: 'control-label'
+        = f.email_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :password, class: 'control-label'
+        = f.password_field :password, class: 'form-control'
+
+      %button.btn.btn-primary{type: 'submit', name: 'commit'}
+        Log in
+
+    %p
+      New user?
+      = link_to 'Sign up now!', sign_up_path
