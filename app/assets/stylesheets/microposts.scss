@@ -1,0 +1,30 @@
+.microposts {
+  list-style: none;
+  padding-left: 0;
+
+  .micropost {
+    padding: 10px 0;
+    border-top: 1px solid $gray-medium-light;
+    &:last-of-type {
+      border-bottom: 1px solid $gray-medium-light;
+    }
+    .gravatar {
+      padding-right: 10px;
+      float: left;
+    }
+    .user {
+      line-height: 1;
+      padding-bottom: 3px;
+    }
+    .created_at {
+      padding-top: 3px;
+      color: $gray;
+    }
+    .user,
+    .content,
+    .created_at {
+      display: block;
+      margin-left: 60px;
+    }
+  }
+}

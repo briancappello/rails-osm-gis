@@ -50,4 +50,8 @@ class User < ApplicationRecord
     self.admin
   end
 
+  def feed
+    Micropost.where('user_id = ?', id)
+  end
+
 end
