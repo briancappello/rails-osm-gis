@@ -5,4 +5,9 @@
     = link_to micropost.user do
       = micropost.user.name
   .content= micropost.content
-  %small.created_at= h("Posted #{time_ago_in_words(micropost.created_at)} ago")
+  %small.created_at
+    = h("Posted #{time_ago_in_words(micropost.created_at)} ago")
+    - if current_user?(micropost.user)
+      |
+      = link_to micropost, method: :delete, data: { confirm: 'Are you sure?' } do
+        delete
