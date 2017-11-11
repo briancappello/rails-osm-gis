@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_secure_password
   attr_accessor :remember_token
 
+  has_many :microposts, dependent: :destroy
+
   validates :name, presence: true,
                    length: { maximum: 50 }
 

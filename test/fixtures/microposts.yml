@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+first:
+  content: FIRST!!!
+  created_at: <%= Time.zone.now %>
+
+<% (2..35).each do |i| %>
+micropost<%= i %>:
+  content: <%= Faker::Lorem.sentence %>
+  created_at: <%= Faker::Date.backward(60) %>
+<% end %>
