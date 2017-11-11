@@ -6,6 +6,9 @@
     %section.user-heading
       = gravatar_for @user
       %h1= @user.name
+    = render 'relationships/stats'
+    - if logged_in?
+      = render 'relationships/form'
     - if current_user?(@user)
       = render 'microposts/form', model: @micropost
   .col-md-8

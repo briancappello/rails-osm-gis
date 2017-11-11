@@ -1,0 +1,24 @@
+- provide :body_class, 'show-follow'
+- provide :title, @title
+
+.row
+  %aside.col-md-4
+    %section.user-heading
+      = gravatar_for current_user
+      %h1= current_user.name
+      = link_to current_user, class: 'profile-link' do
+        view my profile
+      .count= pluralize(current_user.microposts.count, 'micropost')
+    %section.stats
+      = render 'relationships/stats'
+      - if @users.any?
+        .user-avatars
+          - @users.each do |user|
+            = link_to user do
+              = gravatar_for(user, size: 30)
+  .col-md-8
+    %h2= @title
+    - if @users.any?
+      %ul.users.follow
+        = render @users
+      = will_paginate @users

@@ -17,6 +17,30 @@ section.user-heading {
   }
 }
 
+.relationship-stats {
+  overflow: auto;
+  margin-top: 0;
+  padding-bottom: 20px;
+
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
 .user-info {
   div.pagination {
     margin: 0;
@@ -47,24 +71,28 @@ section.user-heading {
   }
 }
 
-.user-list {
-  ul.users {
-    list-style: none;
-    padding-left: 0;
+ul.users {
+  list-style: none;
+  padding-left: 0;
 
-    li.user {
-      &:not(:last-of-type) {
-        padding-bottom: 15px;
-      }
+  li.user {
+    &:not(:last-of-type) {
+      padding-bottom: 15px;
+    }
+    .name {
+      padding-left: 5px;
+    }
+    a:hover {
+      text-decoration: none;
       .name {
-        padding-left: 5px;
-      }
-      a:hover {
-        text-decoration: none;
-        .name {
-          text-decoration: underline;
-        }
+        text-decoration: underline;
       }
     }
+  }
+}
+
+.show-follow {
+  .user-avatars img {
+    margin-bottom: 3px;
   }
 }

@@ -5,6 +5,7 @@
     = link_to current_user, class: 'profile-link' do
       view my profile
     .count= pluralize(current_user.microposts.count, 'micropost')
+  = render 'relationships/stats'
   = render 'microposts/form', action: root_path
 .col-md-8
   - if @feed.any?

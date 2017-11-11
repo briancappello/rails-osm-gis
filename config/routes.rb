@@ -14,12 +14,18 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   resources :users do
-    patch 'edit', on: :member, action: 'update'
-    get 'change-password', on: :member, action: 'edit_password'
-    patch 'change-password', on: :member, action: 'update_password'
+    member do
+      patch :edit, action: 'update'
+      get 'change-password', action: 'edit_password'
+      patch 'change-password', action: 'update_password'
+
+      get :following
+      get :followers
+    end
   end
 
   resources :microposts, only: [:create, :destroy]
   post '/', to: 'microposts#create'
 
+  resources :relationships, only: [:create, :destroy]
 end

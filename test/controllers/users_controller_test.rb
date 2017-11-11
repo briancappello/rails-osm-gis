@@ -135,4 +135,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'following requires auth' do
+    get following_user_path(@user)
+    assert_redirected_to login_path
+  end
+
+  test 'followers requires auth' do
+    get following_user_path(@user)
+    assert_redirected_to login_path
+  end
+
 end
