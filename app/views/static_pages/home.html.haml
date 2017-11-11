@@ -1,12 +1,6 @@
 - provide :body_class, 'home'
 
-.center.jumbotron
-  %h1 Welcome to Sample App
-
-  %h2
-    This is the homepage for the
-    = link_to 'Ruby on Rails Tutorial', 'http://rubyonrails.org'
-    sample application.
-
-  = link_to sign_up_path, class: 'btn btn-lg btn-primary' do
-    Sign up now!
+- if logged_in?
+  = render 'user_home'
+- else
+  = render 'public_home'

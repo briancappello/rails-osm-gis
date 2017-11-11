@@ -1,0 +1,10 @@
+%aside.col-md-4
+  %section.user-heading
+    = gravatar_for current_user
+    %h1= current_user.name
+    = link_to current_user, class: 'profile-link' do
+      view my profile
+    .count= pluralize(current_user.microposts.count, 'micropost')
+  = render 'microposts/form'
+.col-md-8
+  lorem ipsum

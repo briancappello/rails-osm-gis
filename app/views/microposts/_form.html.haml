@@ -1,0 +1,9 @@
+= form_for :micropost do |f|
+
+  = render 'shared/errors', model: @micropost
+
+  .form-group
+    = f.text_area :content, class: 'form-control', rows: 5, placeholder: 'Compose new micropost...'
+
+  %button.btn.btn-primary{type: 'submit', name: 'commit'}
+    Post

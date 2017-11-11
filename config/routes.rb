@@ -18,4 +18,8 @@ Rails.application.routes.draw do
     get 'change-password', on: :member, action: 'edit_password'
     patch 'change-password', on: :member, action: 'update_password'
   end
+
+  resources :microposts, only: [:create, :destroy]
+  post '/', to: 'microposts#create'
+
 end
