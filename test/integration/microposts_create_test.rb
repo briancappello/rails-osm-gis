@@ -42,4 +42,19 @@ class MicropostsCreateTest < ActionDispatch::IntegrationTest
     assert_select '.micropost:first-of-type .content', text: content
   end
 
+  test 'can upload pics' do
+    login_as(@user)
+    get root_path
+    assert_select 'input[type="file"]'
+    assert_difference 'Micropost.count', 1 do
+      post root_path, params: {
+        micropost: {
+          content: 'hello world',
+          picture: fixture_file_upload('test/fixtures/files/bike.png', 'image/png')
+        }
+      }
+    end
+    assert Micropost.first.picture?
+  end
+
 end

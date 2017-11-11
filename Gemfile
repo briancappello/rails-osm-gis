@@ -94,3 +94,12 @@ gem "will_paginate", "~> 3.1"
 
 # Added at 2017-11-10 16:44:25 -0500 by brian:
 gem "bootstrap-will_paginate", "~> 1.0"
+
+# Added at 2017-11-11 09:23:38 -0500 by brian:
+gem "carrierwave", "~> 1.2"
+
+# Added at 2017-11-11 09:23:48 -0500 by brian:
+gem "mini_magick", "~> 4.8"
+
+# Added at 2017-11-11 09:23:56 -0500 by brian:
+gem "fog", "~> 1.42"

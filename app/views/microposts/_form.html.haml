@@ -5,5 +5,20 @@
   .form-group
     = f.text_area :content, class: 'form-control', rows: 5, placeholder: 'Compose new micropost...'
 
+  .form-group
+    = f.label :picture, 'Picture (optional)', class: 'control-label'
+    = f.file_field :picture, accept: 'image/jpeg,image/gif,image/png'
+
   %button.btn.btn-primary{type: 'submit', name: 'commit'}
     Post
+
+:javascript
+  $('#micropost_picture').on('change', function() {
+    if (!(this.files && this.files.length)) {
+      return
+    }
+    var image_megabytes = this.files[0].size / 1024 / 1024;
+    if (image_megabytes > 5) {
+      alert('Maximum file size is 5MB. Please choose a smaller file.');
+    }
+  })
