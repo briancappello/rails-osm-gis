@@ -7,7 +7,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       flash[:success] = 'Post successfully added!'
-      redirect_to root_path
+      redirect_to request.referrer || root_path
     else
       @feed = current_user.microposts.paginate(page: params[:page])
       render 'static_pages/home'
