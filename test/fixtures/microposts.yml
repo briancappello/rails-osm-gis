@@ -1,11 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-first:
+admin_first:
   content: FIRST!!!
   created_at: <%= Time.zone.now %>
+  user: admin
+
+user_first:
+  content: Lorem ipsum.
+  created_at: <%= 10.minutes.ago %>
+  user: user
 
 <% (2..35).each do |i| %>
 micropost<%= i %>:
   content: <%= Faker::Lorem.sentence %>
   created_at: <%= Faker::Date.backward(60) %>
+  user: user
 <% end %>

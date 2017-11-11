@@ -28,7 +28,7 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test 'sorted by default by most recent first' do
-    assert_equal microposts(:first), Micropost.first
+    assert_equal microposts(:admin_first), Micropost.first
   end
 
 end

@@ -2,11 +2,15 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 
-User.create!(name: 'Example User',
+admin = User.create!(name: 'Example User',
              email: 'a@a.com',
              password: 'password',
              password_confirmation: 'password',
              admin: true)
+
+35.times do ||
+  admin.microposts.create!(content: Faker::Lorem.sentence)
+end
 
 99.times do |i|
   name = Faker::Name.name
@@ -16,4 +20,10 @@ User.create!(name: 'Example User',
                email: email,
                password: password,
                password_confirmation: password)
+end
+
+User.order(:created_at).take(5).each do |user|
+  5.times do
+    user.microposts.create!(content: Faker::Lorem.sentence)
+  end
 end
