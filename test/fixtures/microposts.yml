@@ -10,9 +10,9 @@ user_first:
   created_at: <%= 10.minutes.ago %>
   user: user
 
-<% (2..35).each do |i| %>
+<% (2..100).each do |i| %>
 micropost<%= i %>:
   content: <%= Faker::Lorem.sentence %>
   created_at: <%= Faker::Date.backward(60) %>
-  user: user
+  user: <%= j = i % 3; j == 0 ? :user : "user#{j+1}" %>
 <% end %>
