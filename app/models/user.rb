@@ -29,8 +29,7 @@ class User < ApplicationRecord
                        allow_nil: true,
                        length: { minimum: 8 }
 
-  # FIXME: better to use "method reference" convention for defining callbacks
-  before_save { email.downcase! }
+  before_save :downcase_email
 
   def User.digest(str)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
@@ -79,5 +78,10 @@ class User < ApplicationRecord
   def following?(other_user)
     self.following.include?(other_user)
   end
+
+  private
+    def downcase_email
+      self.email = email.downcase
+    end
 
 end
