@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+waypoint:
+  lat: 45.62
+  lon: -123.37
+  ride: ride

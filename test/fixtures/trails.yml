@@ -1,0 +1,5 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+pond_loop:
+  name: Pond Loop
+  location: foo_park

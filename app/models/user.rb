@@ -17,6 +17,8 @@ class User < ApplicationRecord
                                    dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
+  has_many :rides, dependent: :destroy
+
   validates :name, presence: true,
                    length: { maximum: 50 }
 

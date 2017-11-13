@@ -19,6 +19,10 @@ class ActiveSupport::TestCase
     session[:user_id] = user.id
   end
 
+  def fixture_file(name)
+    File.open(File.join(Rails.root, "/test/fixtures/files/#{name}"))
+  end
+
 end
 
 class ActionDispatch::IntegrationTest
