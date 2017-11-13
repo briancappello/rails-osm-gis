@@ -3,11 +3,8 @@ require 'test_helper'
 class RideTest < ActiveSupport::TestCase
 
   def setup
-    start = 50.minutes.ago
     @ride = Ride.new(user: users(:user),
                      trail: trails(:pond_loop),
-                     start: start,
-                     end: start + 45.minutes,
                      gpx_file: fixture_file('browns-camp-loop.gpx'))
   end
 
@@ -25,14 +22,16 @@ class RideTest < ActiveSupport::TestCase
     assert_not @ride.valid?
   end
 
-  test 'start is required' do
+  test 'start is set from gpx file' do
     @ride.start = nil
-    assert_not @ride.valid?
+    @ride.save
+    assert_not @ride.start.nil?
   end
 
-  test 'end is required' do
+  test 'end is set from gpx file' do
     @ride.end = nil
-    assert_not @ride.valid?
+    @ride.save
+    assert_not @ride.end.nil?
   end
 
   test 'ride start must come before the end' do
@@ -44,7 +43,7 @@ class RideTest < ActiveSupport::TestCase
   end
 
   test 'ride duration' do
-    assert_equal 45.minutes, @ride.duration
+    assert_equal 12900.0, @ride.duration
   end
 
   test 'gpx file required' do

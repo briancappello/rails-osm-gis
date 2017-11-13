@@ -29,8 +29,6 @@ class TrailTest < ActiveSupport::TestCase
   test 'deleting a trail should delete its rides' do
     @trail.save
     @trail.rides.create!(user: users(:user),
-                         start: 50.minutes.ago,
-                         end: 5.minutes.ago,
                          gpx_file: fixture_file('browns-camp-loop.gpx'))
     assert_difference 'Ride.count', -1 do
       @trail.destroy

@@ -242,6 +242,9 @@ GEM
     formatador (0.2.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    gpx (0.9.0)
+      nokogiri (~> 1.7)
+      rake
     guard (2.14.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -441,6 +444,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   faker (~> 1.8)
   fog (~> 1.42)
+  gpx (~> 0.9.0)
   guard (~> 2.14)
   guard-minitest (~> 2.4)
   haml (~> 5.0)

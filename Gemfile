@@ -103,3 +103,6 @@ gem "mini_magick", "~> 4.8"
 
 # Added at 2017-11-11 09:23:56 -0500 by brian:
 gem "fog", "~> 1.42"
+
+# Added at 2017-11-13 10:06:11 -0500 by brian:
+gem "gpx", "~> 0.9.0"
