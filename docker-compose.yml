@@ -1,0 +1,27 @@
+---
+version: '3'
+
+services:
+
+  mapnik:
+    build:
+      context: .
+      dockerfile: ./docker/mapnik/Dockerfile
+    ports:
+      - 6789:80
+    entrypoint:
+      - /entrypoint.sh
+    links:
+      - postgis
+    volumes:
+      - ./docker/mapnik/data:/data
+
+  postgis:
+    image: kartoza/postgis:9.5-2.2
+    environment:
+      - POSTGRES_USER=gis
+      - POSTGRES_PASS=gis
+    volumes:
+      - ./docker/postgis/data:/var/lib/postgresql
+    # FIXME workaround to allow the mapnik container to connect w/out a password
+    command: sh -c "echo 'host gis gis 0.0.0.0/0 trust' >> /etc/postgresql/9.5/main/pg_hba.conf && /start-postgis.sh"
