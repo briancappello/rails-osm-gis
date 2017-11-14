@@ -13,11 +13,14 @@
         %li{class: ('active' if current_page?(root_path))}
           = link_to root_path do
             Home
-        %li{class: ('active' if current_page?(help_path))}
-          = link_to help_path do
-            Help
+        %li{class: ('active' if current_page?(locations_path))}
+          = link_to locations_path do
+            Locations
+        %li{class: ('active' if current_page?(rides_path))}
+          = link_to rides_path do
+            Rides
         - if logged_in?
-          %li
+          %li{class: ('active' if current_page?(users_path))}
             = link_to users_path do
               Users
           %li.dropdown

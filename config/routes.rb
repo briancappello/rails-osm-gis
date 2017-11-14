@@ -28,4 +28,11 @@ Rails.application.routes.draw do
   post '/', to: 'microposts#create'
 
   resources :relationships, only: [:create, :destroy]
+
+  resources :locations do
+    resources :trails
+  end
+
+  resources :rides
+
 end

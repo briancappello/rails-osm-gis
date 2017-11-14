@@ -1,0 +1,9 @@
+- provide :title, 'Your Rides'
+
+%h1 Your Rides
+
+- if @rides.any?
+  %ul.rides
+    = render @rides
+- else
+  %p No rides yet. Get pedaling!

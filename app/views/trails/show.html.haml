@@ -1,0 +1,9 @@
+- provide :title, "#{@trail.name} | #{@trail.location.name}"
+
+%h1= @trail.name
+
+- if logged_in?
+  - @rides.each do |ride|
+    %h2
+      = link_to ride_path(ride) do
+        = h("Ride on #{ride.start.time.to_s(:long_ordinal)}")

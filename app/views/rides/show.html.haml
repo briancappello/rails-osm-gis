@@ -1,0 +1,68 @@
+- provide :title, "#{@ride.trail.name} Ride"
+- provide :body_class, 'ride-show'
+
+- content_for :styles do
+  %link{rel: 'stylesheet',
+        href: 'https://unpkg.com/leaflet@1.2.0/dist/leaflet.css',
+        integrity: 'sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==',
+        crossorigin: ''}/
+
+- content_for :head_js do
+  %script{src: 'https://unpkg.com/leaflet@1.2.0/dist/leaflet.js',
+          integrity: 'sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==',
+          crossorigin: ''}
+  %script{src: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.3.1/gpx.min.js'}
+
+%h1= h("Ride on #{@ride.start.time.to_s(:long_ordinal)}")
+%h2<
+  = link_to @ride.trail.name, location_trail_path(location_id: @ride.trail.location.id, id: @ride.trail.id)
+  ,&nbsp;
+  = link_to @ride.trail.location.name, location_path(@ride.trail.location)
+
+%table.table
+  %tbody
+    %tr
+      %th Distance
+      %td= h("#{'%.2f' % @ride.distance} miles")
+    %tr
+      %th Time Riding
+      %td= h("#{duration_of_time_in_words(@ride.moving_duration)}")
+    %tr
+      %th Time Stopped
+      %td= h("#{duration_of_time_in_words(@ride.duration - @ride.moving_duration)}")
+    %tr
+      %th Average Speed
+      %td= h("#{'%.2f' % @ride.avg_speed} mph")
+
+#map
+
+:javascript
+  $(document).ready(function() {
+    var position = #{@ride.bounds_center}
+    var zoom = 13
+
+    var tileServer = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    // var tileServer = 'http://localhost:6789/hot/{z}/{x}/{y}.png'
+
+    var map = L.map('map').setView(position, zoom)
+
+    L.tileLayer(tileServer, {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map)
+
+    new L.GPX("http://localhost:3000#{@ride.gpx_file.url}", {
+      async: true,
+      parseElements: ['track'],
+      marker_options: {
+        startIconUrl: '/assets/pin-icon-start.png',
+        endIconUrl: '/assets/pin-icon-end.png',
+        shadowUrl: '/assets/pin-shadow.png'
+      },
+      wptIconUrls: {
+        '': '/assets/pin-icon-wpt.png'
+      }
+    }).on('loaded', function(e) {
+      var gpx = e.target
+      map.fitBounds(gpx.getBounds(), { padding: [30, 30] })
+    }).addTo(map)
+  })

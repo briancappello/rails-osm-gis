@@ -1,0 +1,3 @@
+%li.ride
+  = link_to ride_path(ride) do
+    = h("#{ride.trail.name} on #{ride.start.time.to_s(:long_ordinal)}")

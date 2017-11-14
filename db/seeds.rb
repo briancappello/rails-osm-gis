@@ -34,3 +34,9 @@ following = users[2..50]
 following.each { |followed| user.follow(followed) }
 followers = users[3..40]
 followers.each { |follower| follower.follow(user) }
+
+tillamook = Location.create!(name: 'Tillamook State Forest')
+browns_camp_loop = Trail.create!(location: tillamook, name: 'Browns Camp Loop')
+ride = Ride.create!(user: admin,
+                    trail: browns_camp_loop,
+                    gpx_file: File.open(File.join(Rails.root, '/test/fixtures/files/browns-camp-loop.gpx')))
