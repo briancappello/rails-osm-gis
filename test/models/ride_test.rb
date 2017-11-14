@@ -23,27 +23,13 @@ class RideTest < ActiveSupport::TestCase
   end
 
   test 'start is set from gpx file' do
-    @ride.start = nil
-    @ride.save
-    assert_not @ride.start.nil?
+    assert @ride.valid?
+    assert @ride.start_time
   end
 
   test 'end is set from gpx file' do
-    @ride.end = nil
-    @ride.save
-    assert_not @ride.end.nil?
-  end
-
-  test 'ride start must come before the end' do
-    @ride.start = 5.minutes.ago
-    @ride.end = 10.minutes.ago
-    assert_not @ride.valid?
-    @ride.end = @ride.start
-    assert_not @ride.valid?
-  end
-
-  test 'ride duration' do
-    assert_equal 12900.0, @ride.duration
+    assert @ride.valid?
+    assert @ride.end_time
   end
 
   test 'gpx file required' do

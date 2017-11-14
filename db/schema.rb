@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112213224) do
+ActiveRecord::Schema.define(version: 20171113225833) do
 
   create_table "locations", force: :cascade do |t|
     t.string "name"
@@ -53,11 +53,15 @@ ActiveRecord::Schema.define(version: 20171112213224) do
   create_table "rides", force: :cascade do |t|
     t.integer "user_id"
     t.integer "trail_id"
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.string "gpx_file"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "duration"
+    t.integer "moving_duration"
+    t.float "distance"
+    t.float "avg_speed"
     t.index ["trail_id"], name: "index_rides_on_trail_id"
     t.index ["user_id"], name: "index_rides_on_user_id"
   end

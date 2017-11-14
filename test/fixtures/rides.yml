@@ -3,6 +3,6 @@
 ride:
   user: user
   trail: pond_loop
-  start: 50.minutes.ago
-  end: 5.minutes.ago
-  gpx_file: 'browns-camp-loop.gpx'
+  start_time: 50.minutes.ago
+  end_time: 5.minutes.ago
+  gpx_file: 'invalid-placeholder-string.gpx'
