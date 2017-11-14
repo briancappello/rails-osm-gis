@@ -106,3 +106,6 @@ gem "fog", "~> 1.42"
 
 # Added at 2017-11-13 10:06:11 -0500 by brian:
 gem "gpx", "~> 0.9.0"
+
+# Added at 2017-11-14 10:54:46 -0500 by brian:
+gem "webpacker", "~> 3.0"

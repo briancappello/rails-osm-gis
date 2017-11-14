@@ -35,4 +35,10 @@ Rails.application.routes.draw do
 
   resources :rides
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :locations, :trails, :rides
+    end
+  end
+
 end
