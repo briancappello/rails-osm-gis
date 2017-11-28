@@ -27,3 +27,7 @@ public/uploads
 /public/packs
 /public/packs-test
 /node_modules
+
+ansible/.password
+ansible/secrets.yaml
+*.pyc
