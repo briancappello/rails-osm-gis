@@ -87,3 +87,6 @@
     - when: redhat_family
       role: geerlingguy.repo-epel
     - role: base
+    - role: rvm_io.ruby
+      tags:
+        - ruby
