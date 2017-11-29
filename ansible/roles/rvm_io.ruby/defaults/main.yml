@@ -1,4 +1,14 @@
 ---
+ruby_build_deps:
+  - '@Development Tools'
+  - bzip2
+  - libffi-devel
+  - libyaml-devel
+  - openssl-devel
+  - readline-devel
+  - sqlite-devel
+  - zlib-devel
+
 # Install 1 or more versions of ruby
 # The last ruby listed will be set as the default ruby
 rvm1_rubies:

@@ -21,20 +21,26 @@
     mode: 0755
   when: not rvm_installer.stat.exists
 
+- name: check if gpg key exists
+  when: not ansible_check_mode and rvm1_gpg_keys != ''
+  command: 'gpg --list-keys {{ rvm1_gpg_keys }}'
+  register: gpg_key_result
+  changed_when: False
+  failed_when: False
+  check_mode: False
+  ignore_errors: True
+
 - name: Import GPG keys
   command: 'gpg --keyserver {{ rvm1_gpg_key_server }} --recv-keys {{ rvm1_gpg_keys }}'
   changed_when: False
   check_mode: False
-  when: not ansible_check_mode and rvm1_gpg_keys != ''
+  when: not ansible_check_mode and rvm1_gpg_keys != '' and gpg_key_result.rc != 0
   register: gpg_result
-  until: gpg_result.rc == 0
-  retries: 5
-  delay: 5
   ignore_errors: True
 
 - name: Import GPG keys the other way
   shell: curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-  when: not ansible_check_mode and rvm1_gpg_keys != '' and gpg_result.rc != 0
+  when: not ansible_check_mode and rvm1_gpg_keys != '' and gpg_key_result.rc != 0 and gpg_result.rc != 0
 
 - name: Install rvm
   command: >
@@ -50,3 +56,9 @@
 - name: Configure rvm
   command: '{{ rvm1_rvm }} autolibs {{ rvm1_autolib_mode }}'
   when: not rvm_binary.stat.exists
+
+- name: make sure rvm is loaded as a function on login
+  lineinfile:
+    path: /home/{{ rvm1_user }}/.bashrc
+    regexp: '^\[\[ -s "\$HOME/\.rvm/scripts/rvm" \]\]'
+    line: '[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*'

@@ -18,10 +18,14 @@
   changed_when: False
   register: detect_default_ruby_version
 
-- name: Select default ruby
+- name: Set default ruby version alias
   command: '{{ rvm1_rvm }} alias create default {{ rvm1_default_ruby_version }}'
   when: detect_default_ruby_version.stdout|default() == '' or
         rvm1_default_ruby_version not in detect_default_ruby_version.stdout
+
+- name: Select (use) default ruby version
+  command: '{{ rvm1_rvm }} use default'
+  changed_when: false
 
 - name: Detect installed ruby patch number
   shell: >
