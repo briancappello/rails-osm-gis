@@ -24,9 +24,9 @@ public/uploads
 /yarn-error.log
 
 .byebug_history
+/public/assets
 /public/packs
 /public/packs-test
-/node_modules
 
 ansible/.password
 ansible/secrets.yaml

@@ -88,5 +88,9 @@
       role: geerlingguy.repo-epel
     - role: base
     - role: rvm_io.ruby
-      tags:
-        - ruby
+      tags: ruby
+    - role: nginx
+      tags: nginx
+    - role: rails
+      tags: rails
+      become_user: '{{ rails_user }}'

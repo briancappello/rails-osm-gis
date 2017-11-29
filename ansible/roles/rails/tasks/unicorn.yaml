@@ -1,0 +1,74 @@
+---
+- name: install unicorn
+  command: '{{ rvm }} default do gem install unicorn'
+
+- name: make sure app run dir exists
+  become: yes
+  become_user: root
+  file:
+    path: '{{ app_run_dir }}'
+    owner: '{{ nginx_user }}'
+    group: '{{ nginx_user }}'
+    state: directory
+
+- name: create unicorn config
+  template:
+    src: unicorn.rb.j2
+    dest: '{{ project_dir }}/config/unicorn.rb'
+    owner: '{{ rails_user }}'
+    group: '{{ rails_user }}'
+    mode: 0644
+
+- when: redhat_family
+  include: selinux_nginx_socket_write.yaml
+  become: yes
+  become_user: root
+
+- name: create rails nginx config
+  become: yes
+  become_user: root
+  template:
+    src: rails.nginx.j2
+    dest: '{{ nginx_sites_available_dir }}/{{ app_name }}'
+  notify: reload nginx
+
+- name: enable rails nginx config
+  become: yes
+  become_user: root
+  file:
+    src: '{{ nginx_sites_available_dir }}/{{ app_name }}'
+    dest: '{{ nginx_sites_enabled_dir }}/{{ app_name }}'
+    state: link
+  notify: reload nginx
+
+- name: create run_unicorn script
+  become: yes
+  become_user: root
+  template:
+    src: run_unicorn.sh.j2
+    dest: '{{ project_dir }}/bin/run_unicorn.sh'
+    owner: '{{ rails_user }}'
+    group: '{{ rails_user }}'
+    mode: 0755
+
+- name: create unicorn systemd service
+  become: yes
+  become_user: root
+  template:
+    src: unicorn.systemd.j2
+    dest: /lib/systemd/system/unicorn.service
+    owner: root
+    group: root
+    mode: 0644
+  register: reload_systemd_daemon
+
+- name: reload systemd daemon
+  become: yes
+  become_user: root
+  when: reload_systemd_daemon | changed
+  command: systemctl daemon-reload
+
+- name: start and enable unicorn
+  become: yes
+  become_user: root
+  service: name=unicorn state=restarted enabled=true

@@ -1,0 +1,20 @@
+; {{ ansible_managed }}
+
+[Unit]
+Description=Start/stop unicorn daemon and workers
+After=network.target
+
+[Service]
+Type=simple
+SyslogIdentifier=unicorn
+;User={{ nginx_user }}
+;Group={{ nginx_user }}
+PIDFile={{ unicorn_pid_path }}
+WorkingDirectory={{ project_dir }}
+ExecStart={{ project_dir }}/bin/run_unicorn.sh
+ExecReload=/bin/kill -s USR2 $MAINPID
+ExecStop=/bin/kill -s QUIT $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

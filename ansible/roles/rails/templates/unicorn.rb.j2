@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+working_directory "{{ project_dir }}"
+pid "{{ unicorn_pid_path }}"
+
+stderr_path "{{ app_log_dir }}/unicorn.log"
+stdout_path "{{ app_log_dir }}/unicorn.log"
+
+listen "{{ unicorn_socket_path }}"
+
+worker_processes 2
+timeout 30

@@ -1,0 +1,12 @@
+---
+- name: check if rvm exists
+  stat: path='{{ rvm }}'
+  register: rvm_exe
+
+- name: install rvm (if necessary)
+  when: rvm_exe is defined and not rvm_exe.stat.exists
+  include_role: name=rvm_io.ruby
+
+- include: rails.yaml
+- include: unicorn.yaml
+  tags: unicorn

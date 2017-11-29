@@ -1,0 +1,24 @@
+---
+rails_user: rails
+rails_deps:
+  - nodejs
+
+rvm: '/home/{{ rails_user }}/.rvm/bin/rvm'
+
+app_name: rails
+project_dir: '/home/{{ rails_user }}/{{ app_name }}'
+static_assets_dir: '{{ nginx_sites_dir }}/{{ app_name }}/assets'
+app_log_dir: '{{ project_dir }}/log'
+
+app_run_dir: '/var/run/{{ app_name }}'
+unicorn_pid_path: '{{ app_run_dir }}/unicorn.pid'
+unicorn_socket_path: '{{ app_run_dir }}/unicorn.sock'
+
+run_migrations: True
+
+__all_the_env_vars__:
+  RAILS_FORCE_SSL: '{{ RAILS_FORCE_SSL | default(omit) }}'
+  RAILS_SECRET_KEY_BASE: '{{ RAILS_SECRET_KEY_BASE | default(omit) }}'
+  RAILS_SERVE_STATIC_FILES: '{{ RAILS_SERVE_STATIC_FILES | default(omit) }}'
+
+rails_environment: '{{ __all_the_env_vars__ | filter_omitted }}'

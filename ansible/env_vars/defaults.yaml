@@ -1,1 +1,5 @@
 ---
+# FIXME: Even though nginx serves the compiled assets, for some unknown reason
+# FIXME: this flag is still needed to silence the following error in production:
+# FIXME: The asset "application.css" is not present in the asset pipeline.
+RAILS_SERVE_STATIC_FILES: True

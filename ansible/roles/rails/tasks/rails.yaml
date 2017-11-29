@@ -1,0 +1,75 @@
+---
+- name: install rails system dependencies
+  become: yes
+  become_user: root
+  package: name={{ item }} state=present
+  with_items: '{{ rails_deps }}'
+
+- name: sync project code from local dir
+  synchronize:
+    src: '{{ local_project_dir }}'
+    dest: '{{ project_dir }}'
+    recursive: yes
+    delete: yes
+    verify_host: yes
+    rsync_opts:
+      - "--exclude=*.pyc"
+      - "--exclude=*.sqlite3"
+      - "--exclude=ansible"
+      - "--exclude=docker"
+      - "--exclude=log"
+      - "--exclude=node_modules"
+      - "--exclude=public"
+      - "--exclude=test"
+      - "--exclude=tmp"
+
+- name: set ownership of {{ project_dir }} to {{ rails_user }}
+  become: yes
+  become_user: root
+  file:
+    path: '{{ project_dir }}'
+    owner: '{{ rails_user }}'
+    group: '{{ rails_user }}'
+    state: directory
+    recurse: yes
+
+- name: make sure app log dir exists
+  file: path='{{ app_log_dir }}' state=directory
+
+- name: make sure static assets dir exists
+  become: yes
+  become_user: root
+  file:
+    path: '{{ static_assets_dir }}'
+    state: directory
+
+- name: sync static assets from local dir
+  become: yes
+  become_user: root
+  synchronize:
+    src: '{{ local_project_dir }}/public/'
+    dest: '{{ static_assets_dir }}'
+    recursive: yes
+    delete: yes
+    verify_host: yes
+
+- name: set ownership of static files to {{ nginx_user }}
+  become: yes
+  become_user: root
+  file:
+    path: '{{ static_assets_dir }}'
+    owner: '{{ nginx_user }}'
+    group: '{{ nginx_user }}'
+    state: directory
+    recurse: yes
+
+- name: run bundle install
+  command: '{{ rvm }} default do bundle install'
+  args:
+    chdir: '{{ project_dir }}'
+
+- name: run db migrations
+  when: run_migrations
+  command: '{{ rvm }} default do bundle exec rake db:migrate RAILS_ENV="production"'
+  args:
+    chdir: '{{ project_dir }}'

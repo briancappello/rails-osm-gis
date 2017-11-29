@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# FIXME: apparently needed by the fog gem; prob missing a path configuration somewhere?
+export HOME="/home/{{ rails_user }}"
+
+{% for var_name, value in rails_environment.items() %}
+export {{ var_name }}="{{ value }}"
+{% endfor %}
+
+{{ rvm }} default do unicorn_rails -c {{ project_dir }}/config/unicorn.rb -E production -D
